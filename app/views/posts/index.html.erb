@@ -10,7 +10,7 @@
                 <h4><i><%= post.link %></i></h4>
                <i> <%=   time_ago_in_words(post.created_at)%>ago by <%=post.user.email%></i>
                <%if post.likenumber.present? %>
-                    <%= post.likenumber %>
+                    <%= post.likenumber %><i>likes</i>
               <%end%>
 
               <% if can? :edit, post %>
@@ -26,7 +26,13 @@
                       :class => 'btn btn-xs btn-danger' %>     
 
                <% end %>
-                 <%=render post.likes %>
+               <% @like=session[:like] %>
+               <%if !@like %>
+                    <i><%=link_to "Like", post_likes_path(post, :like) , :class=>"btn btn-link"%></i>
+                <% else %>
+                   <i> <%=link_to "Unlike", post_likes_path(post, :like) , :class=>"btn btn-link"%></i>
+                <% end %>
+            
                       <hr>
                       <%=render post.comments%>
                       <%=form_for([post,post.comments.build]) do |f|%>
@@ -38,6 +44,7 @@
     <% end %>
   </tbody>
 </table>
+<%@p=session[:p]%>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_post_path,

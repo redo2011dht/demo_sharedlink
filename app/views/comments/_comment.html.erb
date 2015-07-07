@@ -1,0 +1,5 @@
+<%= comment.content %>_<i><%=time_ago_in_words(comment.created_at)%> ago by <%=comment.user.email%></i>
+<% if can? :destroy,comment %>
+	<%=link_to "Delete",post_comment_path(comment.post,comment),:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, method: :delete ,:class => 'btn btn-xs btn-danger' %>
+<% end %>
+<hr>

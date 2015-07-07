@@ -1,0 +1,10 @@
+<i>
+	<font color="blue">
+		<% if  like.status.present? %>
+			<%=link_to "unlike", unlike_post_likes_path(like.post) %>
+		<% else %>
+			<%=link_to "like", like_post_likes_path(like.post) %>
+		<% end %>
+			
+	</font>
+</i>
